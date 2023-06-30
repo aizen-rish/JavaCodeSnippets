@@ -62,30 +62,33 @@ class StringSegmentTree {
 
 	public List<String> query(int i, int j) {
 		List<String> answer = new ArrayList<>();
-		queryInternal(answer, 0, 0, input.length()-1, i, j);
+		queryInternal(answer, 0, 0, input.length() - 1, i, j);
 		return answer;
 	}
 
-	private void queryInternal(List<String> answer, int node, int rangeLeft, int rangeRight, int i, int j) {
-		
+	private String queryInternal(List<String> answer, int node, int rangeLeft, int rangeRight, int i, int j) {
+
 		if (i <= rangeLeft && j >= rangeRight) {
-			answer.add(tree[node]);
+//			answer.add(tree[node]);
 			// return NoInversions.isInverted(tree[node]) ? 1 : 0;
+			System.out.println(tree[node]);
+			return tree[node];
 		}
 
 		if (rangeRight < i || rangeLeft > j) {
-			return;
+			return "";
 		}
 
-		int mid = (i + j) / 2;
+		int mid = (rangeLeft + rangeRight) / 2;
 		int leftChild = 2 * node + 1;
 		int rightChild = leftChild + 1;
 
-		queryInternal(answer, leftChild, rangeLeft, mid, i, j);
-		queryInternal(answer, rightChild, mid+1, rangeRight, i, j);
-		// return leftQueryCount + rightQueryCount;
+		String a = queryInternal(answer, leftChild, rangeLeft, mid, i, j);
+		String b = queryInternal(answer, rightChild, mid + 1, rangeRight, i, j);
+		System.out.println(a + ":" + b);
+		return a + b;
 	}
- 
+
 	private String buildInternal(int i, int j, int node) {
 
 		if (i == j) {
@@ -98,7 +101,7 @@ class StringSegmentTree {
 		int leftChild = 2 * node + 1;
 		int rightChild = leftChild + 1;
 
-		System.out.println(input.substring(i, j+1));
+		System.out.println(input.substring(i, j + 1));
 		tree[node] = buildInternal(i, mid, leftChild) + buildInternal(mid + 1, j, rightChild);
 		return tree[node];
 	}
