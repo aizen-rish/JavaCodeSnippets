@@ -1,5 +1,8 @@
 package rish.scripts.challenges.hackerearth;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * 
  * Contest link:
@@ -20,6 +23,21 @@ public class NoInversions {
 
 		StringSegmentTree tree = new StringSegmentTree(test);
 		tree.printTree();
+		System.out.println(tree.query(1, 4));
+
+		System.out.println(isInverted("abcd"));
+	}
+
+	public static boolean isInverted(String s) {
+		int init = 0;
+		for (char c : s.toCharArray()) {
+			int cVal = Character.getNumericValue(c);
+			if (cVal < init) {
+				return true;
+			}
+			init = cVal;
+		}
+		return false;
 	}
 
 }
@@ -28,6 +46,7 @@ class StringSegmentTree {
 
 	String input;
 	String[] tree;
+	int[] invTree;
 
 	public StringSegmentTree(String input) {
 
@@ -37,13 +56,41 @@ class StringSegmentTree {
 
 		this.input = input;
 		this.tree = new String[maxSize];
+		this.invTree = new int[maxSize];
 		buildInternal(0, size - 1, 0);
 	}
 
+	public List<String> query(int i, int j) {
+		List<String> answer = new ArrayList<>();
+		queryInternal(answer, 0, 0, input.length()-1, i, j);
+		return answer;
+	}
+
+	private void queryInternal(List<String> answer, int node, int rangeLeft, int rangeRight, int i, int j) {
+		
+		if (i <= rangeLeft && j >= rangeRight) {
+			answer.add(tree[node]);
+			// return NoInversions.isInverted(tree[node]) ? 1 : 0;
+		}
+
+		if (rangeRight < i || rangeLeft > j) {
+			return;
+		}
+
+		int mid = (i + j) / 2;
+		int leftChild = 2 * node + 1;
+		int rightChild = leftChild + 1;
+
+		queryInternal(answer, leftChild, rangeLeft, mid, i, j);
+		queryInternal(answer, rightChild, mid+1, rangeRight, i, j);
+		// return leftQueryCount + rightQueryCount;
+	}
+ 
 	private String buildInternal(int i, int j, int node) {
 
 		if (i == j) {
 			tree[node] = input.substring(i, j + 1);
+			invTree[node] = 1;
 			return tree[node];
 		}
 
@@ -51,6 +98,7 @@ class StringSegmentTree {
 		int leftChild = 2 * node + 1;
 		int rightChild = leftChild + 1;
 
+		System.out.println(input.substring(i, j+1));
 		tree[node] = buildInternal(i, mid, leftChild) + buildInternal(mid + 1, j, rightChild);
 		return tree[node];
 	}
