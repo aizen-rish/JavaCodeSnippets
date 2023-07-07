@@ -8,86 +8,86 @@ import java.util.Collections;
 import java.util.List;
 
 /*
- * Problem link: https://www.hackerearth.com/challenges/competitive/june-circuits-23/algorithm/2-swap-49fcc417/
+ *
+ * Contest link: https://www.hackerearth.com/challenges/competitive/june-circuits-23/problems/
+ * Problem link: https://www.hackerearth.com/problem/algorithm/2-swap-49fcc417/
  * 
- * Date attempted: 19 June 2023
+ * Date attempted: 19th June 2023
+ * 
+ * @author Rishabh Soni
+ *
  */
-
 public class TwoSwap {
 
-	public static boolean isSwappable(String t, String s) {
+    public static boolean isSwappable(String t, String s) {
 
-		if (t.equals(s)) {
-			return true;
-		}
+        if (t.equals(s)) {
+            return true;
+        }
 
-		int size = t.length();
+        int size = t.length();
 
-		char[] tChars = t.toCharArray();
-		char[] sChars = s.toCharArray();
+        char[] tChars = t.toCharArray();
+        char[] sChars = s.toCharArray();
 
-		List<Character> evenCharsForFirst = new ArrayList<>();
-		List<Character> oddCharsForFirst = new ArrayList<>();
-		List<Character> evenCharsForSecond = new ArrayList<>();
-		List<Character> oddCharsForSecond = new ArrayList<>();
+        List<Character> evenCharsForFirst = new ArrayList<>();
+        List<Character> oddCharsForFirst = new ArrayList<>();
+        List<Character> evenCharsForSecond = new ArrayList<>();
+        List<Character> oddCharsForSecond = new ArrayList<>();
 
-		for (int i = 0; i < size; i++) {
+        for (int i = 0; i < size; i++) {
 
-			if (i % 2 == 0) {
-				evenCharsForFirst.add(tChars[i]);
-				evenCharsForSecond.add(sChars[i]);
-				continue;
-			}
+            if (i % 2 == 0) {
+                evenCharsForFirst.add(tChars[i]);
+                evenCharsForSecond.add(sChars[i]);
+                continue;
+            }
 
-			oddCharsForFirst.add(tChars[i]);
-			oddCharsForSecond.add(sChars[i]);
-		}
+            oddCharsForFirst.add(tChars[i]);
+            oddCharsForSecond.add(sChars[i]);
+        }
 
-		Collections.sort(evenCharsForFirst);
-		Collections.sort(evenCharsForSecond);
+        Collections.sort(evenCharsForFirst);
+        Collections.sort(evenCharsForSecond);
 
-		if (!evenCharsForFirst.equals(evenCharsForSecond)) {
-			return false;
-		}
+        if (!evenCharsForFirst.equals(evenCharsForSecond)) {
+            return false;
+        }
 
-		Collections.sort(oddCharsForFirst);
-		Collections.sort(oddCharsForSecond);
+        Collections.sort(oddCharsForFirst);
+        Collections.sort(oddCharsForSecond);
 
-		if (!oddCharsForFirst.equals(oddCharsForSecond)) {
-			return false;
-		}
+        if (!oddCharsForFirst.equals(oddCharsForSecond)) {
+            return false;
+        }
 
-		return true;
-	}
+        return true;
+    }
 
-	public static void main(String[] args) throws NumberFormatException, IOException {
+    public static void main(String[] args) throws NumberFormatException, IOException {
 
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		int testCaseCount = Integer.parseInt(br.readLine());
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int testCaseCount = Integer.parseInt(br.readLine());
 
-		List<String> paramA = new ArrayList<>();
-		List<String> paramB = new ArrayList<>();
+        List<String> paramA = new ArrayList<>();
+        List<String> paramB = new ArrayList<>();
 
-		while (testCaseCount > 0) {
+        while (testCaseCount > 0) {
 
-			// int stringSize = Integer.parseInt(br.readLine());
-			String first = br.readLine();
-			String second = br.readLine();
+            String first = br.readLine();
+            String second = br.readLine();
 
-			paramA.add(first);
-			paramB.add(second);
+            paramA.add(first);
+            paramB.add(second);
 
-			testCaseCount--;
-		}
+            testCaseCount--;
+        }
 
-		for (int i = 0; i < paramA.size(); i++) {
-			boolean isSwappable = isSwappable(paramA.get(i), paramB.get(i));
-			String output = isSwappable ? "Yes" : "No";
-			System.out.println(output);
-		}
-
-//		System.out.println(isSwappable("ss", "ss"));
-//		System.out.println(isSwappable("shade", "adshe"));
-	}
+        for (int i = 0; i < paramA.size(); i++) {
+            boolean isSwappable = isSwappable(paramA.get(i), paramB.get(i));
+            String output = isSwappable ? "Yes" : "No";
+            System.out.println(output);
+        }
+    }
 
 }
