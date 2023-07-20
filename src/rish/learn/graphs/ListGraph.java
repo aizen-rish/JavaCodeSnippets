@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+import java.util.Stack;
 
 public class ListGraph {
 
@@ -60,6 +61,28 @@ public class ListGraph {
                 if (!visited[node]) {
                     visited[node] = true;
                     graphQueue.add(node);
+                }
+            }
+        }
+    }
+
+    public void dfsTraversal(int start) {
+
+        boolean[] visited = new boolean[graph.size()];
+
+        Stack<Integer> stack = new Stack<>();
+        stack.add(start);
+        visited[start] = true;
+
+        while (!stack.isEmpty()) {
+
+            Integer vis = stack.pop();
+            System.out.print(vis + " ");
+
+            for (int node : graph.get(vis)) {
+                if (!visited[node]) {
+                    visited[node] = true;
+                    stack.add(node);
                 }
             }
         }

@@ -2,6 +2,7 @@ package rish.learn.graphs;
 
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Stack;
 
 public class MatrixGraph {
 
@@ -52,6 +53,28 @@ public class MatrixGraph {
                 if (graph[vis][i] == 1 && !visited[i]) {
                     visited[i] = true;
                     graphQueue.add(i);
+                }
+            }
+        }
+    }
+
+    public void dfsTraversal(int start) {
+
+        boolean[] visited = new boolean[graph.length];
+
+        Stack<Integer> stack = new Stack<>();
+        stack.add(start);
+        visited[start] = true;
+
+        while (!stack.isEmpty()) {
+
+            int vis = stack.pop();
+            System.out.print(vis + " ");
+
+            for (int i = 0; i < graph[vis].length; i++) {
+                if (graph[vis][i] == 1 && !visited[i]) {
+                    visited[i] = true;
+                    stack.add(i);
                 }
             }
         }
