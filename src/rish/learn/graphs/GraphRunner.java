@@ -4,7 +4,7 @@ public class GraphRunner {
 
     public static void main(String[] args) {
 
-        int V = 5;
+        int V = 7;
         ListGraph graph1 = new ListGraph(V, false);
 
         graph1.addEdge(0, 1);
@@ -14,9 +14,10 @@ public class GraphRunner {
         graph1.addEdge(1, 4);
         graph1.addEdge(2, 3);
         graph1.addEdge(3, 4);
+        graph1.addEdge(5, 6);
 
         graph1.printGraph();
-        graph1.bfsTraversal(0);
+        graph1.bfsTraversal();
         graph1.dfsTraversal(0);
         graph1.topologicalTraversal();
 
@@ -29,9 +30,10 @@ public class GraphRunner {
         graph2.addEdge(1, 4);
         graph2.addEdge(2, 3);
         graph2.addEdge(3, 4);
+        graph2.addEdge(5, 6);
 
         graph2.printGraph();
-        graph2.bfsTraversal(0);
+        graph2.bfsTraversal();
         graph2.dfsTraversal(0);
         graph2.topologicalTraversal();
     }

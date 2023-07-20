@@ -36,23 +36,37 @@ public class MatrixGraph {
         }
     }
 
-    public void bfsTraversal(int start) {
+    public void bfsTraversal() {
 
         boolean[] visited = new boolean[graph.length];
 
-        Queue<Integer> graphQueue = new LinkedList<>();
-        graphQueue.add(start);
+        for (int i = 0; i < graph.length; i++) {
+            if (!visited[i]) {
+                bfsTraversalInternal(i, visited);
+            }
+        }
+    }
+
+    public void bfsTraversal(int start) {
+        boolean[] visited = new boolean[graph.length];
+        bfsTraversalInternal(start, visited);
+    }
+
+    private void bfsTraversalInternal(int start, boolean[] visited) {
+
+        Queue<Integer> queue = new LinkedList<>();
+        queue.add(start);
         visited[start] = true;
 
-        while (!graphQueue.isEmpty()) {
+        while (!queue.isEmpty()) {
 
-            Integer vis = graphQueue.remove();
+            int vis = queue.remove();
             System.out.print(vis + " ");
 
             for (int i = 0; i < graph[vis].length; i++) {
                 if (graph[vis][i] == 1 && !visited[i]) {
                     visited[i] = true;
-                    graphQueue.add(i);
+                    queue.add(i);
                 }
             }
         }

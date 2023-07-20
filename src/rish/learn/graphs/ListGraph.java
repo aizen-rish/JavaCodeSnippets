@@ -44,23 +44,37 @@ public class ListGraph {
         }
     }
 
-    public void bfsTraversal(int start) {
+    public void bfsTraversal() {
 
         boolean[] visited = new boolean[graph.size()];
 
-        Queue<Integer> graphQueue = new LinkedList<>();
-        graphQueue.add(start);
+        for (int i = 0; i < graph.size(); i++) {
+            if (!visited[i]) {
+                bfsTraversalInternal(i, visited);
+            }
+        }
+    }
+
+    public void bfsTraversal(int start) {
+        boolean[] visited = new boolean[graph.size()];
+        bfsTraversalInternal(start, visited);
+    }
+
+    public void bfsTraversalInternal(int start, boolean[] visited) {
+
+        Queue<Integer> queue = new LinkedList<>();
+        queue.add(start);
         visited[start] = true;
 
-        while (!graphQueue.isEmpty()) {
+        while (!queue.isEmpty()) {
 
-            Integer vis = graphQueue.remove();
+            int vis = queue.remove();
             System.out.print(vis + " ");
 
             for (int node : graph.get(vis)) {
                 if (!visited[node]) {
                     visited[node] = true;
-                    graphQueue.add(node);
+                    queue.add(node);
                 }
             }
         }
