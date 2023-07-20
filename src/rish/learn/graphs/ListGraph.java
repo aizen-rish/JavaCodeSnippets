@@ -80,9 +80,23 @@ public class ListGraph {
         }
     }
 
-    public void dfsTraversal(int start) {
+    public void dfsTraversal() {
 
         boolean[] visited = new boolean[graph.size()];
+
+        for (int i = 0; i < graph.size(); i++) {
+            if (!visited[i]) {
+                dfsTraversalInternal(i, visited);
+            }
+        }
+    }
+
+    public void dfsTraversal(int start) {
+        boolean[] visited = new boolean[graph.size()];
+        dfsTraversalInternal(start, visited);
+    }
+
+    public void dfsTraversalInternal(int start, boolean[] visited) {
 
         Stack<Integer> stack = new Stack<>();
         stack.add(start);

@@ -18,7 +18,7 @@ public class GraphRunner {
 
         graph1.printGraph();
         graph1.bfsTraversal();
-        graph1.dfsTraversal(0);
+        graph1.dfsTraversal();
         graph1.topologicalTraversal();
 
         MatrixGraph graph2 = new MatrixGraph(V, false);
@@ -34,7 +34,7 @@ public class GraphRunner {
 
         graph2.printGraph();
         graph2.bfsTraversal();
-        graph2.dfsTraversal(0);
+        graph2.dfsTraversal();
         graph2.topologicalTraversal();
     }
 

@@ -72,9 +72,23 @@ public class MatrixGraph {
         }
     }
 
-    public void dfsTraversal(int start) {
+    public void dfsTraversal() {
 
         boolean[] visited = new boolean[graph.length];
+
+        for (int i = 0; i < graph.length; i++) {
+            if (!visited[i]) {
+                dfsTraversalInternal(i, visited);
+            }
+        }
+    }
+
+    public void dfsTraversal(int start) {
+        boolean[] visited = new boolean[graph.length];
+        dfsTraversalInternal(start, visited);
+    }
+
+    public void dfsTraversalInternal(int start, boolean[] visited) {
 
         Stack<Integer> stack = new Stack<>();
         stack.add(start);
