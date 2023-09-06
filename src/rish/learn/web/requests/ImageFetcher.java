@@ -1,5 +1,6 @@
 package rish.learn.web.requests;
 
+import java.awt.PageAttributes.MediaType;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -10,6 +11,17 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.net.http.HttpResponse.BodyHandlers;
+
+import org.apache.hc.client5.http.classic.methods.HttpGet;
+import org.apache.hc.client5.http.fluent.Request;
+import org.apache.hc.client5.http.fluent.Response;
+import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
+import org.apache.hc.client5.http.impl.classic.HttpClients;
+import org.apache.hc.core5.net.URIBuilder;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.reactive.function.client.WebClient;
+
+import reactor.core.publisher.Mono;
 
 public class ImageFetcher {
 
@@ -24,6 +36,7 @@ public class ImageFetcher {
 
         fetchExtra();
         fetchUsingOkHttp();
+        fetchUSingSpring();
     }
 
     private void fetchLegacy() throws IOException {
@@ -84,6 +97,20 @@ public class ImageFetcher {
         APOD apod = mapper.readValue(response.body().byteStream(), APOD.class);
 
         System.out.println(apod.url);
+    }
+
+    private void fetchUsingSpring() {
+
+        RestTemplate temp = new RestTemplate();
+        APOD obj = temp.getForObject(APOD_URL + "?api_key=DEMO_KEY", APOD.class);
+
+        System.out.println(obj.date);
+
+        WebClient client = WebClient.create(APOD_URL + "?api_key=DEMO_KEY");
+        Mono<String> body = client.get().accept(MediaType.APPLICATION_JSON).retrieve().bodyToMono(String.class);
+
+        String output = body.block();
+        System.out.println(output);
     }
 
     public static void main(String[] args) {
